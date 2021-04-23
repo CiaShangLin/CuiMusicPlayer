@@ -60,4 +60,8 @@ dependencies {
     implementation "androidx.multidex:multidex:2.0.1"
 
     implementation "androidx.recyclerview:recyclerview:1.2.0"
+
+    def  koin_version= "3.0.1"
+    implementation "io.insert-koin:koin-android:$koin_version"
+    implementation "io.insert-koin:koin-android-ext:$koin_version"
 }
