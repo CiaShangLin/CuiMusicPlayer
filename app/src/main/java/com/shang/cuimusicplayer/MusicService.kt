@@ -7,13 +7,18 @@ import android.util.Log
 
 class MusicService : Service() {
 
-    override fun onBind(intent: Intent?): IBinder? {
-        return MusicBinder()
-    }
+    private var _MusicBinder: MusicBinder? = null
+
 
     override fun onCreate() {
         super.onCreate()
-        Log.d("DEBUG","MusicService onCreate")
+        Log.d("DEBUG", "MusicService onCreate")
+    }
+
+    override fun onBind(intent: Intent?): IBinder? {
+        _MusicBinder = MusicBinder()
+        Log.d("DEBUG","onBind")
+        return _MusicBinder
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -22,6 +27,6 @@ class MusicService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("DEBUG","MusicService onDestroy")
+        Log.d("DEBUG", "MusicService onDestroy")
     }
 }
