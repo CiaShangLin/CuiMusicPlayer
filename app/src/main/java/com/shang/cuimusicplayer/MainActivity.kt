@@ -13,6 +13,12 @@ import android.util.Log
 import android.util.Size
 import com.bumptech.glide.Glide
 import com.shang.cuimusicplayer.databinding.ActivityMainBinding
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 
@@ -29,31 +35,16 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun setResult(list: List<MusicItemBean>) {
-                    Log.d("DEBUG","setResult:${list.toString()}")
-
-
+                    Log.d("DEBUG","setResult:${list.size}")
 //                    val bitmap = contentResolver.loadThumbnail(list[0].contentUri,Size(200,200),null)
-//                    runOnUiThread {
-//                        Glide.with(mBinding.imageView)
-//                            .load(bitmap)
-//                            .error(R.drawable.ic_launcher_foreground)
-//                            .into(mBinding.imageView)
-//                    }
                 }
 
                 override fun error(exception: Exception) {
                     Log.d("DEBUG","error:${exception.message}")
                 }
             })
-//            mMusicBinder?.getMusic(contentResolver)
-
-            val intent = Intent(this@MainActivity,MusicService::class.java).apply {
-                this.action="TEST"
-            }
-            startService(intent)
+            mMusicBinder?.getMusic(contentResolver)
         }
-
-
         override fun onServiceDisconnected(name: ComponentName?) {
 
         }
@@ -71,9 +62,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, MusicService::class.java)
         bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE)
 
-        mBinding.button.setOnClickListener {
-
-        }
-
     }
+
 }

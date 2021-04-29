@@ -5,5 +5,4 @@ import androidx.lifecycle.ViewModel
 
 class MainViewModel(private val mMainRepository: MainRepository) : ViewModel() {
 
-
 }
